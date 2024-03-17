@@ -10,20 +10,16 @@ function formatLabel(label: string) {
 
 const links = path.map((p, index, array) => {
     const target = `/${array.slice(0, index + 1).join("/")}`
+    const label = (index == 0 ? HeaderNavigationLinks.find(l => l.to == target)?.label : null) ?? formatLabel(p)
     const icon = (index == 0 ? HeaderNavigationLinks.find(l => l.to == target)?.icon : null) ?? (index == 1 ? "i-heroicons-square-3-stack-3d" : null) ?? (index == array.length - 1 ? "i-heroicons-link" : null)
 
     return {
-        label: formatLabel(p),
+        label,
         to: target,
         icon
     }
 })
 
-links.unshift({
-    label: 'Accueil',
-    icon: 'i-heroicons-home',
-    to: '/'
-})
 </script>
 
 <template>
