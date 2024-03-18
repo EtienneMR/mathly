@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { NuxtLinkProps } from "#app"
 
-const props = defineProps<NuxtLinkProps>()
-
+defineProps<NuxtLinkProps>()
 </script>
 
 <template>
-    <NuxtLink v-bind="props">
+    <NuxtLink v-bind="$props">
         <slot></slot>
     </NuxtLink>
 </template>
