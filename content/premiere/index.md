@@ -1,6 +1,7 @@
 ---
 title: "Spécialité NSI première"
 description: "Algorithmique et Programmation en seconde"
+icon: "i-mynaui-one"
 ---
 
 Voici le programme de première spécialité NSI.

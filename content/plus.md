@@ -1,6 +1,7 @@
 ---
 title: "Title of the page"
 description: "meta description of the page"
+icon: "i-ic-round-plus"
 ---
 
 Cool

@@ -1,6 +1,7 @@
 ---
 title: "Title of the page"
 description: "meta description of the page"
+icon: "i-mynaui-two"
 ---
 
 Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js.

@@ -16,12 +16,12 @@ const categories: any = Object.values(list.reduce((finalObject, obj) => {
 }, {}))
 
 const categoriesWithParent = await Promise.all(categories.map(async (category: any) => {
-    const parent = await useAsyncData(`content:${category._dir}`, () => queryContent(category._path).findOne())
+    const parent = await useAsyncData(`content:${category._path}`, () => queryContent(category._path).findOne())
 
     return {
         ...category,
         label: parent.data.value?.title,
-        icon: "i-material-symbols-book",
+        icon: parent.data.value?.icon,
     }
 }))
 </script>
