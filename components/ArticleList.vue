@@ -1,9 +1,10 @@
 <script setup lang="ts">
 const { list } = defineProps<{ list: any[] }>()
+const route = useRoute()
 
 const categories: any = Object.values(list.reduce((finalObject, obj) => {
     const directory = obj._dir
-    if (directory) {
+    if (directory && "/" + directory != route.path) {
         finalObject[directory] ?? (finalObject[directory] = {
             _dir: directory,
             _path: "/" + obj._path.split('/').slice(1, -1).join("/"),
@@ -19,19 +20,18 @@ const categoriesWithParent = await Promise.all(categories.map(async (category: a
 
     return {
         ...category,
-        parent: parent.data.value,
+        label: parent.data.value?.title,
+        icon: "i-material-symbols-book",
     }
 }))
 </script>
 
 <template>
     <div class="mt-5 select-none">
-        <UCard v-for="category in categoriesWithParent" :key="category._dir">
-            <template #header>
-                <h2 class="m-0">{{ category.parent?.title ?? category._dir }}</h2>
+        <UAccordion :items="categoriesWithParent">
+            <template #item="{ item }">
+                <ArticleChild v-for="article of item.children" :key="article._path" v-bind="article" />
             </template>
-
-            <ArticleChild v-for="article of category.children" :key="article._path" v-bind="article" />
-        </UCard>
+        </UAccordion>
     </div>
 </template>

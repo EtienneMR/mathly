@@ -22,6 +22,7 @@ const isMarkdown = doc._type == 'markdown'
             <ContentList :path="path">
                 <template #default="{ list }">
                     <hr v-if="doc" class="mt-5">
+                    <h2>Documents disponnibles</h2>
                     <ArticleList :list="list" />
                 </template>
                 <template #not-found>
