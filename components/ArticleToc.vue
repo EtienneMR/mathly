@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-    toc: { links: { id: string, text: string }[] }
+    toc?: { links: { id: string, text: string }[] }
 }>()
 </script>
 

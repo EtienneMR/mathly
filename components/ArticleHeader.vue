@@ -4,22 +4,30 @@ const { path: routePathString } = useRoute()
 
 const path = routePathString.split("/").filter(s => s)
 
-function formatLabel(label: string) {
-    return label[0].toUpperCase() + label.substring(1).toLowerCase()
-}
+let currentPath = ''
 
-const links = path.map((p, index, array) => {
-    const target = `/${array.slice(0, index + 1).join("/")}`
-    const label = (index == 0 ? HeaderNavigationLinks.find(l => l.to == target)?.label : null) ?? formatLabel(p)
-    const icon = (index == 0 ? HeaderNavigationLinks.find(l => l.to == target)?.icon : null) ?? (index == 1 ? "i-heroicons-square-3-stack-3d" : null) ?? (index == array.length - 1 ? "i-heroicons-link" : null)
+const crumbs = await Promise.all(path.map(param => {
+    currentPath = `${currentPath}/${param}`
 
-    return {
-        label,
-        to: target,
-        icon
+    return useAsyncData(`content:${currentPath}`, () => queryContent().where({ _path: currentPath }).findOne())
+}))
+
+const links = computed(() => crumbs.map((crumb, index, array) => {
+    const data = crumb.data.value
+    if (data) {
+        const target = data._path
+        const label = data.title
+        const icon = (index == 0 ? HeaderNavigationLinks.find(l => l.to == target)?.icon : null)
+            ?? (index == 1 ? "i-heroicons-square-3-stack-3d" : null)
+            ?? (index == array.length - 1 ? "i-heroicons-link" : null)
+
+        return {
+            to: target,
+            label,
+            icon
+        }
     }
-})
-
+}).filter(crumb => crumb))
 </script>
 
 <template>
