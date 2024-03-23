@@ -17,9 +17,7 @@ const links = computed(() => crumbs.map((crumb, index, array) => {
     if (data) {
         const target = data._path
         const label = data.title
-        const icon = (index == 0 ? HeaderNavigationLinks.find(l => l.to == target)?.icon : null)
-            ?? (index == 1 ? "i-heroicons-square-3-stack-3d" : null)
-            ?? (index == array.length - 1 ? "i-heroicons-link" : null)
+        const icon = data.icon
 
         return {
             to: target,

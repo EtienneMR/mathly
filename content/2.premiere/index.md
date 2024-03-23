@@ -1,6 +1,6 @@
 ---
-title: "Spécialité NSI première"
-description: "Algorithmique et Programmation en seconde"
+title: "Première"
+description: "Spécialité NSI première"
 icon: "i-mynaui-one"
 ---
 

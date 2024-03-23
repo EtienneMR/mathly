@@ -2,7 +2,6 @@
 
 const MIN_HORIZONTAL_WIDTH = 600
 
-const { HeaderNavigationLinks } = useAppConfig()
 const { width: windowWidth } = useWindowSize()
 const isSlideoverOpen = ref(false)
 
@@ -14,18 +13,28 @@ function closeSlideover() {
     isSlideoverOpen.value = false
 }
 
-const links = HeaderNavigationLinks.map(link => ({
-    ...link,
-    click: closeSlideover
-}))
+const { data } = await useAsyncData(`content:global-header-links`, () => queryContent().where({ _dir: "" }).only(["title", "icon", "_path"]).find())
+const rawLinks = data.value ?? []
 
-const expandLinks = [[
-    {
-        label: "Accueil",
-        icon: "i-ph-pi",
-        to: "/",
-    },
-], [
+const homeLink = {
+    label: "Accueil",
+    icon: "i-ph-pi",
+    to: "/",
+    click: closeSlideover,
+}
+
+const links = [
+    homeLink,
+
+    ...rawLinks.map(rawLink => ({
+        label: rawLink.title,
+        icon: rawLink.icon,
+        to: rawLink._path,
+        click: closeSlideover
+    }))
+]
+
+const expandLinks = [[homeLink], [
     {
         icon: "i-heroicons-bars-3",
         click: () => {
