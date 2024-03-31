@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const { HeaderNavigationLinks } = useAppConfig()
 const { path: routePathString } = useRoute()
 
 const path = routePathString.split("/").filter(s => s)
@@ -17,9 +16,7 @@ const links = computed(() => crumbs.map((crumb, index, array) => {
     if (data) {
         const target = data._path
         const label = data.title
-        const icon = (index == 0 ? HeaderNavigationLinks.find(l => l.to == target)?.icon : null)
-            ?? (index == 1 ? "i-heroicons-square-3-stack-3d" : null)
-            ?? (index == array.length - 1 ? "i-heroicons-link" : null)
+        const icon = data.icon
 
         return {
             to: target,
@@ -31,5 +28,9 @@ const links = computed(() => crumbs.map((crumb, index, array) => {
 </script>
 
 <template>
-    <UBreadcrumb :links="links" />
+    <UBreadcrumb :links="links">
+        <template #icon="{ link, index, isActive }">
+            <UIcon v-if="link.icon" dynamic :name="link.icon" class="w-5 h-5" />
+        </template>
+    </UBreadcrumb>
 </template>

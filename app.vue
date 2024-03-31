@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import icon from "assets/icon.svg"
+
 useHead({
   htmlAttrs: {
     lang: 'fr'
@@ -6,8 +8,8 @@ useHead({
   link: [
     {
       rel: 'icon',
-      type: 'image/ico',
-      href: '/favicon.ico'
+      type: 'image/svg',
+      href: icon
     }
   ],
   titleTemplate: (titleChunk) => {

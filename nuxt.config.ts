@@ -24,7 +24,10 @@ export default defineNuxtConfig({
   content: {
     documentDriven: true,
     highlight: {
-      theme: "github-dark",
+      theme: {
+        default: "github-light",
+        dark: "github-dark",
+      },
       langs: ["vue"],
     },
     markdown: {
